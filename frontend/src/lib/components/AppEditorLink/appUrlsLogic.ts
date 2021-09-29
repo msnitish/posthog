@@ -92,7 +92,11 @@ export const appUrlsLogic = kea<appUrlsLogicType>({
         addUrlAndGo: async ({ value }) => {
             // TODO: Need to refactor this to use `teamLogic.actions.updateCurrentTeam`
             const app_urls = [...values.appUrls, value]
-            await api.update('api/projects/@current', { app_urls })
+            const team = teamLogic.values.currentTeam
+            if (!team) {
+                throw new Error("Current project isn't known yet!")
+            }
+            await api.update(`api/projects/${team.id}`, { app_urls })
             if (typeof props.actionId === 'number' || props.isToolbarModal) {
                 window.location.href = appEditorUrl(
                     value,

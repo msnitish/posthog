@@ -4,6 +4,7 @@ import { toParams } from 'lib/utils'
 import { SessionRecordingType } from '~/types'
 import { sessionRecordingsTableLogicType } from './sessionRecordingsTableLogicType'
 import { router } from 'kea-router'
+import { teamLogic } from '../teamLogic'
 
 type SessionRecordingId = string
 interface Params {
@@ -29,7 +30,9 @@ export const sessionRecordingsTableLogic = kea<sessionRecordingsTableLogicType<S
                     const params = toParams({
                         distinct_id: props.distinctId ?? '',
                     })
-                    const response = await api.get(`api/projects/@current/session_recordings?${params}`)
+                    const response = await api.get(
+                        `api/projects/${teamLogic.values.currentTeam?.id}/session_recordings?${params}`
+                    )
                     return response.results
                 },
             },
