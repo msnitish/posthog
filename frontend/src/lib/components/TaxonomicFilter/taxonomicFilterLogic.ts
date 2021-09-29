@@ -28,7 +28,7 @@ interface Group<T> {
     getValue: (instance: T) => TaxonomicFilterValue
 }
 
-export const taxonomicFilterLogic = kea<taxonomicFilterLogicType<Group>>({
+export const taxonomicFilterLogic = kea<taxonomicFilterLogicType<Group, SimpleOption>>({
     props: {} as TaxonomicFilterLogicProps,
     key: (props) => `${props.taxonomicFilterLogicKey}`,
 
