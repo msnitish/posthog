@@ -56,6 +56,9 @@ export const eventDefinitionsModel = kea<eventDefinitionsModelType<EventDefiniti
         ],
     }),
     listeners: ({ actions }) => ({
+        [teamLogic.actions.loadCurrentTeamSuccess]: () => {
+            actions.loadEventDefinitions(true)
+        },
         loadEventDefinitionsSuccess: ({ eventStorage }) => {
             if (eventStorage.next) {
                 actions.loadEventDefinitions()
@@ -71,11 +74,6 @@ export const eventDefinitionsModel = kea<eventDefinitionsModelType<EventDefiniti
             } else {
                 propertyDefinitionsModel.actions.updatePropertyDefinition(response)
             }
-        },
-    }),
-    events: ({ actions }) => ({
-        afterMount: () => {
-            actions.loadEventDefinitions(true)
         },
     }),
     selectors: {
