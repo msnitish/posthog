@@ -38,7 +38,7 @@ export const infiniteListLogic = kea<infiniteListLogicType>({
     key: (props) => `${props.taxonomicFilterLogicKey}-${props.listGroupType}`,
 
     connect: (props: InfiniteListLogicProps) => ({
-        values: [taxonomicFilterLogic(props), ['searchQuery', 'value', 'groupType']],
+        values: [taxonomicFilterLogic(props), ['searchQuery', 'value', 'groupType', 'groups']],
         actions: [taxonomicFilterLogic(props), ['setSearchQuery', 'selectItem']],
     }),
 
@@ -159,20 +159,20 @@ export const infiniteListLogic = kea<infiniteListLogicType>({
         },
     }),
 
-    selectors: {
+    selectors: ({ values }) => ({
         listGroupType: [() => [(_, props) => props.listGroupType], (listGroupType) => listGroupType],
         isLoading: [(s) => [s.remoteItemsLoading], (remoteItemsLoading) => remoteItemsLoading],
         group: [
-            (s) => [s.listGroupType, taxonomicFilterLogic.selectors.groups],
+            (s) => [s.listGroupType, s.groups],
             (listGroupType, groups) => groups.find((g) => g.type === listGroupType),
         ],
         remoteEndpoint: [(s) => [s.group], (group) => group?.endpoint || null],
         isRemoteDataSource: [(s) => [s.remoteEndpoint], (remoteEndpoint) => !!remoteEndpoint],
         rawLocalItems: [
-            () => [
-                taxonomicFilterLogic.selectors.groups,
-                (state, props) => {
-                    const group = taxonomicFilterLogic.values.groups.find((g) => g.type === props.listGroupType)
+            (s) => [
+                s.group,
+                (state) => {
+                    const { group } = values
                     if (group?.logic && group?.value) {
                         return group.logic.selectors[group.value]?.(state) || null
                     }
@@ -230,7 +230,7 @@ export const infiniteListLogic = kea<infiniteListLogicType>({
             (s) => [s.index, s.startIndex, s.stopIndex],
             (index, startIndex, stopIndex) => typeof index === 'number' && index >= startIndex && index <= stopIndex,
         ],
-    },
+    }),
 
     events: ({ actions, values, props }) => ({
         afterMount: () => {
