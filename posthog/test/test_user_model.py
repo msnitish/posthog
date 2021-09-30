@@ -3,6 +3,8 @@ from posthog.test.base import BaseTest
 
 
 class TestUser(BaseTest):
+    maxDiff = None
+
     def test_create_user_with_distinct_id(self):
         with self.settings(TEST=False):
             user = User.objects.create_user(first_name="Tim", email="tim@gmail.com", password=None)
