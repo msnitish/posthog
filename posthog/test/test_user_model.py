@@ -1,8 +1,8 @@
 from posthog.models import OrganizationMembership, Team, User
-from posthog.test.base import BaseTest
+from posthog.test.base import APIBaseTest
 
 
-class TestUser(BaseTest):
+class TestUser(APIBaseTest):
     maxDiff = None
 
     def test_create_user_with_distinct_id(self):
