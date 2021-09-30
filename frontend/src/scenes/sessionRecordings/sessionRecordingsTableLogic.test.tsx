@@ -11,12 +11,12 @@ describe('sessionRecordingsTableLogic', () => {
     let logic: BuiltLogic<sessionRecordingsTableLogicType<string>>
 
     mockAPI(async ({ pathname, searchParams }) => {
-        if (pathname === 'api/projects/@current/session_recordings' && searchParams['distinct_id'] === '') {
+        if (pathname === 'api/projects/undefined/session_recordings' && searchParams['distinct_id'] === '') {
             return {
                 results: ['List of recordings from server'],
             }
         } else if (
-            pathname === 'api/projects/@current/session_recordings' &&
+            pathname === 'api/projects/undefined/session_recordings' &&
             searchParams['distinct_id'] === 'cool_user_99'
         ) {
             return {

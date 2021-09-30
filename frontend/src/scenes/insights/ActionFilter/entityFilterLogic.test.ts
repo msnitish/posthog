@@ -24,7 +24,7 @@ describe('entityFilterLogic', () => {
             return {
                 results: filtersJson.actions,
             }
-        } else if (pathname === 'api/projects/@current/event_definitions/') {
+        } else if (pathname === 'api/projects/undefined/event_definitions/') {
             return eventDefinitionsJson
         } else if (pathname === '_preflight/') {
             return { is_clickhouse_enabled: true }

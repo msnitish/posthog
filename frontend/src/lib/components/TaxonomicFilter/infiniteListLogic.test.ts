@@ -12,7 +12,7 @@ describe('infiniteListLogic', () => {
     let logic: BuiltLogic<infiniteListLogicType>
 
     mockAPI(async ({ pathname, searchParams }) => {
-        if (pathname === 'api/projects/@current/event_definitions') {
+        if (pathname === 'api/projects/undefined/event_definitions') {
             const results = searchParams.search
                 ? mockEventDefinitions.filter((e) => e.name.includes(searchParams.search))
                 : mockEventDefinitions

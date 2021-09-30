@@ -28,7 +28,7 @@ describe('funnelLogic', () => {
         } else if (pathname === '_preflight/') {
             return { is_clickhouse_enabled: true }
         } else if (
-            ['api/action/', 'api/projects/@current/event_definitions/', 'api/users/@me/', 'api/dashboard'].includes(
+            ['api/action/', 'api/projects/undefined/event_definitions/', 'api/users/@me/', 'api/dashboard'].includes(
                 pathname
             )
         ) {
