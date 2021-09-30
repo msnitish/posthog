@@ -28,7 +28,15 @@ interface Group<T> {
     getValue: (instance: T) => TaxonomicFilterValue
 }
 
-export const taxonomicFilterLogic = kea<taxonomicFilterLogicType<Group, SimpleOption>>({
+type PossibleGroup =
+    | Group<SimpleOption>
+    | Group<EventDefinition>
+    | Group<PropertyDefinition>
+    | Group<CohortType>
+    | Group<PersonProperty>
+    | Group<ActionType>
+
+export const taxonomicFilterLogic = kea<taxonomicFilterLogicType<PossibleGroup>>({
     props: {} as TaxonomicFilterLogicProps,
     key: (props) => `${props.taxonomicFilterLogicKey}`,
 
@@ -166,14 +174,7 @@ export const taxonomicFilterLogic = kea<taxonomicFilterLogicType<Group, SimpleOp
                         getName: (eventDefinition): string => eventDefinition.name,
                         getValue: (eventDefinition): TaxonomicFilterValue => eventDefinition.name,
                     } as Group<EventDefinition>,
-                ] as (
-                    | Group<SimpleOption>
-                    | Group<EventDefinition>
-                    | Group<PropertyDefinition>
-                    | Group<CohortType>
-                    | Group<PersonProperty>
-                    | Group<ActionType>
-                )[],
+                ] as PossibleGroup[],
         ],
         groupTypes: [
             (s) => [(_, props) => props.groupTypes, s.groups],

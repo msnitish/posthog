@@ -182,7 +182,7 @@ export const infiniteListLogic = kea<infiniteListLogicType>({
                     return null
                 },
             ],
-            (rawLocalItems: (EventDefinition | CohortType)[]) => rawLocalItems,
+            (_, rawLocalItems: (EventDefinition | CohortType)[]) => rawLocalItems,
         ],
         fuse: [
             (s) => [s.rawLocalItems, s.group],
