@@ -56,7 +56,7 @@ export const eventDefinitionsModel = kea<eventDefinitionsModelType<EventDefiniti
         ],
     }),
     listeners: ({ actions }) => ({
-        [teamLogic.actions.loadCurrentTeamSuccess]: () => {
+        [teamLogic.actionTypes.loadCurrentTeamSuccess]: () => {
             actions.loadEventDefinitions(true)
         },
         loadEventDefinitionsSuccess: ({ eventStorage }) => {

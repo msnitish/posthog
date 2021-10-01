@@ -54,7 +54,7 @@ export const propertyDefinitionsModel = kea<
         ],
     }),
     listeners: ({ actions }) => ({
-        [teamLogic.actions.loadCurrentTeamSuccess]: () => {
+        [teamLogic.actionTypes.loadCurrentTeamSuccess]: () => {
             actions.loadPropertyDefinitions(true)
         },
         loadPropertyDefinitionsSuccess: ({ propertyStorage }) => {
