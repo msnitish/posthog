@@ -30,6 +30,7 @@ from posthog.models.filters.mixins.paths import (
     TargetEventsMixin,
 )
 from posthog.models.filters.mixins.property import PropertyMixin
+from posthog.models.filters.mixins.simplify import SimplifyFilterMixin
 
 
 class PathFilter(
@@ -56,6 +57,7 @@ class PathFilter(
     LimitMixin,
     OffsetMixin,
     PathLimitsMixin,
+    SimplifyFilterMixin,
     # TODO: proper fix for EventQuery abstraction
     BaseFilter,
 ):

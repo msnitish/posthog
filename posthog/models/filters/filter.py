@@ -38,6 +38,7 @@ from posthog.models.filters.mixins.funnel import (
     HistogramMixin,
 )
 from posthog.models.filters.mixins.property import PropertyMixin
+from posthog.models.filters.mixins.simplify import SimplifyFilterMixin
 
 
 class Filter(
@@ -69,6 +70,7 @@ class Filter(
     FunnelLayoutMixin,
     FunnelTypeMixin,
     HistogramMixin,
+    SimplifyFilterMixin,
     BaseFilter,
 ):
     """
