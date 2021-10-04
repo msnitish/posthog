@@ -53,14 +53,13 @@ class ClickhousePersonViewSet(PersonViewSet):
         if request.user.is_anonymous or not self.team:
             return {"result": ([], None, None)}
 
-        team = self.team
         filter = Filter(request=request, data={"insight": INSIGHT_FUNNELS}, team=self.team)
         funnel_class: Callable = ClickhouseFunnelPersons
 
         if filter.funnel_viz_type == FunnelVizType.TRENDS:
             funnel_class = ClickhouseFunnelTrendsPersons
 
-        people, should_paginate = funnel_class(filter, team).run()
+        people, should_paginate = funnel_class(filter, self.team).run()
         limit = filter.limit if filter.limit else 100
         next_url = format_offset_absolute_url(request, filter.offset + limit) if should_paginate else None
         initial_url = format_offset_absolute_url(request, 0)
@@ -99,15 +98,9 @@ class ClickhousePersonViewSet(PersonViewSet):
         if request.user.is_anonymous or not self.team:
             return {"result": ([], None, None)}
 
-<<<<<<< HEAD
-        team = self.team
-        filter = PathFilter(request=request, data={"insight": INSIGHT_PATHS})
-=======
-        team = request.user.team
-        filter = PathFilter(request=request, data={"insight": INSIGHT_PATHS}, team=team)
->>>>>>> d6577bfc0... Simplify filters ASAP if filter is created
+        filter = PathFilter(request=request, data={"insight": INSIGHT_PATHS}, team=self.team)
 
-        people, should_paginate = ClickhousePathsPersons(filter, team).run()
+        people, should_paginate = ClickhousePathsPersons(filter, self.team).run()
         limit = filter.limit or 100
         next_url = format_offset_absolute_url(request, filter.offset + limit) if should_paginate else None
         initial_url = format_offset_absolute_url(request, 0)
